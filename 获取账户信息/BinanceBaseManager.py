@@ -20,12 +20,7 @@ class BinanceBaseManager(ABC):
         pass
 
     def _generate_signature(self, params: dict) -> str:
-        """安全增强的签名生成方法"""
-        # 参数预处理
-        filtered_params = {k: v for k, v in params.items() if v is not None}
-
-        # 按字母顺序严格排序
-        sorted_params = sorted(filtered_params.items())
+        """安全增强的签名生成方法"
 
         # 手动构建查询字符串（包含必要编码）
         query_string = '&'.join([f"{k}={v}" for k, v in params.items()])
