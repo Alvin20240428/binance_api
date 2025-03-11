@@ -10,8 +10,7 @@ class UnifiedAccountManager(BinanceBaseManager):
 
     def get_um_positions(self) -> list:
         """获取合约持仓"""
-        response = self._signed_request("GET", "/papi/v1/um/positionRisk")
-        # 验证响应结构：若返回的是字典，需提取列表字段
+        response = self._signed_request("GET", "/papi/v1/um/positionRisk"）
         if isinstance(response, dict):
             return response.get("positions", [])  # 提取 positions 列表
         elif isinstance(response, list):
