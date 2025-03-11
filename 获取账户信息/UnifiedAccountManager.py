@@ -1,5 +1,4 @@
 from BinanceBaseManager import BinanceBaseManager
-import time
 
 
 class UnifiedAccountManager(BinanceBaseManager):
@@ -10,19 +9,14 @@ class UnifiedAccountManager(BinanceBaseManager):
 
     def get_um_positions(self) -> list:
         """获取合约持仓"""
-        response = self._signed_request("GET", "/papi/v1/um/positionRisk"）
+        response = self._signed_request("GET", "/papi/v1/um/positionRisk")
         if isinstance(response, dict):
-            return response.get("positions", [])  # 提取 positions 列表
+            return response.get("positions", [])
         elif isinstance(response, list):
             return response
         else:
             raise ValueError("API 返回数据格式异常")
 
-    def get_cm_positions(self) -> list:
-        """获取U本位合约持仓"""
-        return self._signed_request(
-            "GET", "/papi/v1/um/positionRisk"
-        )["positions"]
 
     def get_balance_summary(self) -> dict:
         """获取统一账户资产总览"""

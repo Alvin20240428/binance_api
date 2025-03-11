@@ -22,12 +22,15 @@ class BinancePortfolio:
         filtered_unified = [p for p in unified_data if float(p.get('positionAmt', 0)) != 0]
         formatted_unified = PortfolioFormatter.format_unified_positions(filtered_unified)
 
-        # 合并结果
+
         return f"{formatted_spot}\n{formatted_unified}"
 
+def load_config() -> tuple:
+    load_dotenv()
+    return (os.getenv("BINANCE_API_KEY"), os.getenv("BINANCE_SECRET_KEY"))
+
 def main():
-    api_key = os.getenv("BINANCE_API_KEY")
-    api_secret = os.getenv("BINANCE_SECRET_KEY")
+    api_key, api_secret = load_config()
     spot = SpotAccountManager(api_key=api_key, api_secret=api_secret)
     unified = UnifiedAccountManager(api_key=api_key, api_secret=api_secret)
     try:

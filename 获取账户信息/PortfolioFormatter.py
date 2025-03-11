@@ -1,9 +1,6 @@
-from datetime import datetime
-from typing import List, Dict
-
 
 class PortfolioFormatter:
-    """专业级资产格式化工具"""
+    """资产格式化"""
 
     @staticmethod
     def format_spot_assets(spot_data: list) -> str:
@@ -32,21 +29,20 @@ class PortfolioFormatter:
         """统一账户持仓格式化（增强健壮性）"""
         output = ["\n🟢 统 一 账 户"]
 
-        # 验证输入数据格式
         if not isinstance(unified_data, list):
             return "⚠️ 持仓数据格式错误: 非列表类型"
 
-        # 过滤有效持仓并验证元素类型
+        # 过滤有效持仓
         valid_positions = []
         for pos in unified_data:
             if not isinstance(pos, dict):
-                continue  # 跳过非字典元素
+                continue
             try:
                 position_amt = float(pos.get("positionAmt", 0))
                 if position_amt != 0:
                     valid_positions.append(pos)
             except ValueError:
-                continue  # 跳过数值转换失败的数据
+                continue
 
         # 无持仓时的提示
         if not valid_positions:
@@ -81,7 +77,7 @@ class PortfolioFormatter:
 
     @staticmethod
     def _generate_table(headers: list, rows: list) -> str:
-        """生成专业表格"""
+        """生成表格"""
         col_width = [10, 10, 12, 12, 15]
         sep_line = "+" + "+".join(["-" * w for w in col_width]) + "+"
         table = [sep_line]
