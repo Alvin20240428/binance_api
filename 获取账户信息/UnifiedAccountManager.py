@@ -20,7 +20,7 @@ class UnifiedAccountManager(BinanceBaseManager):
             raise ValueError("API 返回数据格式异常")
 
     def get_cm_positions(self) -> list:
-        """获取币本位合约持仓"""
+        """获取U本位合约持仓"""
         return self._signed_request(
             "GET", "/papi/v1/um/positionRisk"
         )["positions"]
